@@ -11,7 +11,7 @@ echo "====================================================="
 
 # Step 1: Fetch data from Kantan CMS API
 echo "📥 Step 1/4: Fetching data from Kantan CMS..."
-./scripts/get_from_cms_runner.py
+python ./scripts/get_from_cms_runner.py
 if [ $? -ne 0 ]; then
     echo "❌ Error: Failed to fetch data from CMS"
     exit 1
@@ -21,7 +21,7 @@ echo
 
 # Step 2: Convert JSON data to markdown files
 echo "🔄 Step 2/4: Converting content to markdown..."
-./scripts/run_convert_runner.py
+python ./scripts/run_convert_runner.py
 if [ $? -ne 0 ]; then
     echo "❌ Error: Failed to convert content"
     exit 1
@@ -41,7 +41,7 @@ echo
 
 # Step 4: Create ZIP archive and deploy to hosting
 echo "📤 Step 4/4: Packaging and deploying site..."
-./scripts/zip_and_export_runner.py
+python ./scripts/zip_and_export_runner.py
 if [ $? -ne 0 ]; then
     echo "❌ Error: Failed to package and deploy site"
     exit 1

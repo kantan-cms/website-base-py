@@ -1,0 +1,51 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_id:
+        description: "project_id"
+        required: true
+      cms_url:
+        description: "cms_url"
+        required: false
+
+env:
+  CMS_API_KEY: ${{ secrets.CMS_API_KEY }}
+  PROJECT_ID: ${{ github.event.inputs.project_id }}
+  CMS_BASE_URL: ${{ github.event.inputs.cms_url }}
+  KANTAN_REQUIRED_COLLECTIONS: Document
+  KANTAN_STORAGE_PATH: ./tmp/
+  STATIC_OUTPUT_DIR: ./dist/
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 23
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.1.30
+
+      - name: Install Bun Dependencies
+        run: |
+          bun install
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install -r scripts/requirements.txt
+
+      - name: Run Build Script
+        run: |
+          bash build.sh
