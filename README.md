@@ -22,6 +22,13 @@ STATIC_OUTPUT_DIR=./out
 ZIP_FILENAME=site-export.zip
 ```
 
+## Build
+To build the project, run the following command:
+
+```bash
+bash build.sh
+```
+
 ## Available Scripts
 
 ### 1. Fetch Data from CMS
